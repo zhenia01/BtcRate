@@ -11,3 +11,4 @@ Written using C#/.NET 5
 
 ### Additional info
 - API uses JWT auth, token in returned from the _/user/login_ endpoint
+- You can find CSV file in a folder where executable file is being created (for example _BtcRate\WebAPI\bin\Debug\net5.0_)
