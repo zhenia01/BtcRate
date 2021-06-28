@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Common.Dto
 {
-    public record UserCredentialsDto(string Email, string Password);
+    public record UserCredentialsDto([EmailAddress]string Email, string Password);
 }
