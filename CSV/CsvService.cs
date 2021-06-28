@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -12,7 +10,10 @@ namespace CSV
 {
     public class CsvService
     {
-        public async Task<T?> Find<T>(Predicate<T> keySelector)
+        /// <summary>
+        /// Returns (if exists) first element that satisfied predicate
+        /// </summary>
+        public async Task<T?> Find<T>(Predicate<T> predicate)
             where T : class
         {
             await using var fs = new FileStream(
@@ -28,7 +29,7 @@ namespace CSV
 
             await foreach (var record in records)
             {
-                if (keySelector(record))
+                if (predicate(record))
                 {
                     return record;
                 }
@@ -37,6 +38,9 @@ namespace CSV
             return null;
         }
         
+        /// <summary>
+        /// Writes object to a csv file
+        /// </summary>
         public async Task Write<T>(T obj)
         {
             await using var fs = new FileStream(
